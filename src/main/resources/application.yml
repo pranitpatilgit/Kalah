@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  profiles: default
+
+application:
+
+logging:
+  level:
+    com.pranitpatil.kalah : INFO
+    org.springframework.web : DEBUG
+  file: ${log.path}/kalah.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m - %X{requestID}%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m - %X{requestID}%n"
