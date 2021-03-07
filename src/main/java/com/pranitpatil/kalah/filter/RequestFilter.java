@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * This filter sets a random request id for each request which gets appended to every log statement.
+ * This is helpful in finding out the logs of specific request in case of a lot of concurrent requests to the server.
+ */
 @Component
 public class RequestFilter implements Filter {
 

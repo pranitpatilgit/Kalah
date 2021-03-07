@@ -38,6 +38,10 @@ public class GameData implements Cloneable{
         pits[pitIndex] = pits[pitIndex] + stoneCount;
     }
 
+    /**
+     * This gives user representation of pits from the underlying array based implementation.
+     * @return
+     */
     public Map<Integer, String> getPitsAsMap(){
         Map<Integer, String> map = new TreeMap<>();
 

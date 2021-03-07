@@ -19,9 +19,18 @@ public class Database {
         this.kalahProperties = kalahProperties;
     }
 
+    /**
+     * Store for all running or over games
+     */
     private Map<Integer, Game> games = new HashMap<>();
 
     //Making It Immutable
+    /**
+     * Returns clone of the game from database.
+     * All updates fields can be saved by using saveOrUpdate method.
+     * @param id
+     * @return Game
+     */
     public Game getGame(int id){
         try {
             if(games.get(id) == null){
@@ -44,6 +53,11 @@ public class Database {
         }
     }
 
+    /**
+     * All updates fields of Game or GameData can be saved by using saveOrUpdate method.
+     * This is required as the creation and get methods gives a clone object.
+     * @param game
+     */
     public void saveOrUpdate(Game game){
         this.games.put(game.getId(), game);
     }

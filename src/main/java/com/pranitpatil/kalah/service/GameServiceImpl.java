@@ -36,6 +36,14 @@ public class GameServiceImpl implements GameService{
         return new GameDto(database.getGame(gameId));
     }
 
+    /**
+     * Moves all the stones from specified pit and sows is one by one to the next pits.
+     * Performs necessary validations and business logic
+     *
+     * @param gameId
+     * @param pitId
+     * @return
+     */
     @Override
     public GameDto move(int gameId, int pitId) {
         //Convert Pit to array index and get the next Pit
@@ -107,6 +115,13 @@ public class GameServiceImpl implements GameService{
         }
     }
 
+    /**
+     * Returns true if the last stone lands in an empty house belonging to the current playing player
+     * @param lastPitIndex
+     * @param player
+     * @param game
+     * @return
+     */
     private boolean isHit(int lastPitIndex, Player player, Game game){
         if(game.getGameData().getPitValue(lastPitIndex) == 1 &&
                 player == KalahUtils.getOwner(lastPitIndex) &&
@@ -117,6 +132,12 @@ public class GameServiceImpl implements GameService{
         return false;
     }
 
+    /**
+     * If it's a hit then the playting player gets all the stone from opposite pit
+     * @param game
+     * @param lastPitIndex
+     * @param player
+     */
     private void transferStonesToHouse(Game game, int lastPitIndex, Player player){
         int stoneCount = game.getGameData().getPitValue(KalahUtils.getOppositePitIndex(lastPitIndex));
 
@@ -141,6 +162,10 @@ public class GameServiceImpl implements GameService{
         return false;
     }
 
+    /**
+     * Moves all stones from all pits belonging to each player to it's house
+     * @param game
+     */
     @Override
     public void stopGame(Game game) {
         game.setGameOver(true);
