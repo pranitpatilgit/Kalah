@@ -1,6 +1,7 @@
 package com.pranitpatil.kalah.database.entity;
 
 import com.pranitpatil.kalah.config.KalahProperties;
+import com.pranitpatil.kalah.exception.KalahException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +24,13 @@ public class Database {
     //Making It Immutable
     public Game getGame(int id){
         try {
+            if(games.get(id) == null){
+              throw new KalahException("Game not found.");
+            }
+
             return (Game) games.get(id).clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Clone Not Supported");
+            throw new KalahException(e);
         }
     }
 
@@ -35,7 +40,7 @@ public class Database {
         try {
             return (Game) game.clone();
         } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Clone Not Supported");
+            throw new KalahException(e);
         }
     }
 

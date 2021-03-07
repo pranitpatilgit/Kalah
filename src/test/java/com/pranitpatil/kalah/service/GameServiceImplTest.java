@@ -5,6 +5,7 @@ import com.pranitpatil.kalah.database.entity.Database;
 import com.pranitpatil.kalah.database.entity.Game;
 import com.pranitpatil.kalah.database.entity.Player;
 import com.pranitpatil.kalah.dto.GameDto;
+import com.pranitpatil.kalah.validator.GameValidator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,12 +20,14 @@ public class GameServiceImplTest {
 
     @Mock
     private Database database;
+    @Mock
+    private GameValidator gameValidator;
 
     private GameService gameService;
 
     @Before
     public void before(){
-        gameService = new GameServiceImpl(database);
+        gameService = new GameServiceImpl(database, gameValidator);
     }
 
     @Test

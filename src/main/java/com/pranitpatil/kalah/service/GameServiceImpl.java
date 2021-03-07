@@ -6,6 +6,7 @@ import com.pranitpatil.kalah.database.entity.Game;
 import com.pranitpatil.kalah.database.entity.GameData;
 import com.pranitpatil.kalah.database.entity.Player;
 import com.pranitpatil.kalah.dto.GameDto;
+import com.pranitpatil.kalah.validator.GameValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ public class GameServiceImpl implements GameService{
     private static final Logger logger = LoggerFactory.getLogger(GameServiceImpl.class);
 
     private Database database;
+    private GameValidator gameValidator;
 
     @Autowired
-    public GameServiceImpl(Database database) {
+    public GameServiceImpl(Database database, GameValidator gameValidator) {
         this.database = database;
+        this.gameValidator = gameValidator;
     }
 
     @Override
@@ -30,14 +33,31 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public GameDto move(int gameId, int pitId) {
-        //TODO Validations
-
         //Convert Pit to array index and get the next Pit
         int currentPitIndex = pitId - 1;
 
         Game game = database.getGame(gameId);
         Player currentPlayer = getCurrentPlayer(game, currentPitIndex);
 
+        gameValidator.validate(game, pitId);
+
+        int lastPitIndex = moveStones(currentPitIndex, game, currentPlayer);
+
+        game.setCurrentChance(getNextPlayer(lastPitIndex, currentPlayer));
+
+        if(!KalahUtils.isHouse(lastPitIndex) && isHit(lastPitIndex, currentPlayer, game)){
+            transferStonesToHouse(game, lastPitIndex, currentPlayer);
+        }
+
+        if(checkGameOver(game)){
+            stopGame(game);
+        }
+
+        database.saveOrUpdate(game);
+        return new GameDto(game);
+    }
+
+    private int moveStones(int currentPitIndex, Game game, Player currentPlayer) {
         int numberOfStone = game.getGameData().getPitValue(currentPitIndex);
         //Set Current pit count to Zero
         game.getGameData().setPitValue(currentPitIndex, 0);
@@ -56,19 +76,7 @@ public class GameServiceImpl implements GameService{
                 currentPitIndex = nextPitIndex(currentPitIndex);
             }
         }
-
-        game.setCurrentChance(getNextPlayer(lastPitIndex, currentPlayer));
-
-        if(!KalahUtils.isHouse(lastPitIndex) && isHit(lastPitIndex, currentPlayer, game)){
-            transferStonesToHouse(game, lastPitIndex, currentPlayer);
-        }
-
-        if(checkGameOver(game)){
-            stopGame(game);
-        }
-
-        database.saveOrUpdate(game);
-        return new GameDto(game);
+        return lastPitIndex;
     }
 
     private Player getCurrentPlayer(Game game, int pitIndex) {
