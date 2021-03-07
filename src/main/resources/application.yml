@@ -4,6 +4,8 @@ spring:
   profiles: default
 
 application:
+  kalah:
+    initialPitCount : 6
 
 logging:
   level:
