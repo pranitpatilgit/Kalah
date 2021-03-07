@@ -20,6 +20,7 @@ OR
 
         java -jar Kalah-1.0.0-SNAPSHOT.jar
 
+If you want to change the starting number of stones change it in the application.yml
 
 ### **API Information**
 API can be accessed from following swagger url
@@ -27,7 +28,7 @@ API can be accessed from following swagger url
 
 There are three endpoints
 
-- ######  Create Game
+- ####  Create Game
   Creates a new game and return the id of the same so as to be used to play
 
   Following request can be used to create a game
@@ -45,7 +46,7 @@ There are three endpoints
             }
         }
 
-- ######  View Game
+- ####  View Game
 
   Gets the details of the game and the position and count of the stone in the pit
 
@@ -80,7 +81,7 @@ There are three endpoints
             }
         }
 
-- ######  Move a stone from specified pit
+- ####  Move a stone from specified pit
 
   This is the request for a player to make a move and pick up stones from one of their pit and sow it to the next pits
 
@@ -117,7 +118,7 @@ There are three endpoints
 
 ### **Future Improvements**
 
-- Code can be made more configurable to change number of pits currently there are fixed 12 pits 5 for each player and each player has one house.
+- Code can be made more configurable to change number of pits. e.g. each player has 8 pits instead of 6
 - Inclusion of a sample running test which shows a complete game running
 
 
