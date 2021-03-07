@@ -25,6 +25,7 @@
         <spring-boot.version>2.4.3</spring-boot.version>
         <apache-commons-lang3.version>3.12.0</apache-commons-lang3.version>
         <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
+        <spring-hateoas.version>1.1.4.RELEASE</spring-hateoas.version>
     </properties>
 
     <dependencies>
@@ -32,6 +33,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.hateoas</groupId>
+            <artifactId>spring-hateoas</artifactId>
+            <version>${spring-hateoas.version}</version>
         </dependency>
 
         <dependency>
@@ -74,18 +81,5 @@
     </dependencies>
 
     <build>
-        <!--<plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>-->
     </build>
 </project>

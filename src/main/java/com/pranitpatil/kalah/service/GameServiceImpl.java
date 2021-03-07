@@ -32,6 +32,11 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
+    public GameDto getGame(int gameId) {
+        return new GameDto(database.getGame(gameId));
+    }
+
+    @Override
     public GameDto move(int gameId, int pitId) {
         //Convert Pit to array index and get the next Pit
         int currentPitIndex = pitId - 1;

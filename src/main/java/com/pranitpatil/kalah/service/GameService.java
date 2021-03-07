@@ -12,4 +12,6 @@ public interface GameService {
     boolean checkGameOver(Game game);
 
     void stopGame(Game game);
+
+    GameDto getGame(int gameId);
 }

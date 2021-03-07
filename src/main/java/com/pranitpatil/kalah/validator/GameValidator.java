@@ -36,5 +36,9 @@ public class GameValidator {
             throw new KalahException("Pit id does not belong to " + Player.PLAYER_TWO);
         }
 
+        if(game.getGameData().getPitValue(pitId - 1) == 0){
+            throw new KalahException("Pit contains 0 stones, choose another pit.");
+        }
+
     }
 }
